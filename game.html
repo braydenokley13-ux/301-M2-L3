@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Mode - NFL System Stress Test</title>
+    <link rel="stylesheet" href="css/game.css">
+    <link rel="stylesheet" href="css/nfl-theme.css">
+</head>
+<body class="game-page real-mode">
+    <div class="container">
+        <header class="game-header">
+            <div class="header-left">
+                <a href="index.html" class="back-link" onclick="return confirmExit()">← Exit</a>
+                <h1>🏈 NFL System Stress Test</h1>
+            </div>
+            <div class="header-right">
+                <span class="mode-badge real">Real Mode</span>
+                <span class="progress-indicator">Progress: <span id="progress-text">0/15</span></span>
+            </div>
+        </header>
+
+        <div class="score-bar">
+            <div class="score-item">
+                <span class="score-label">Matches:</span>
+                <span class="score-value" id="matches-count">0</span>
+            </div>
+            <div class="score-item">
+                <span class="score-label">Adjacents:</span>
+                <span class="score-value" id="adjacents-count">0</span>
+            </div>
+            <div class="score-item">
+                <span class="score-label">Misreads:</span>
+                <span class="score-value" id="misreads-count">0</span>
+            </div>
+        </div>
+
+        <main class="game-content">
+            <!-- Scenario Question Screen -->
+            <div id="scenario-screen" class="screen active">
+                <div class="scenario-card">
+                    <div class="team-header" id="team-header">
+                        <div class="team-info">
+                            <h2 id="team-name">Team Name</h2>
+                            <div class="team-type" id="team-type">Organization Type</div>
+                        </div>
+                        <div class="health-meter-container">
+                            <div class="health-label">System Health</div>
+                            <div class="health-meter">
+                                <div class="health-bar" id="health-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="scenario-info">
+                        <h3 id="scenario-title">Scenario Title</h3>
+                    </div>
+
+                    <div class="news-banner" id="news-banner">
+                        <div class="news-label">📰 BREAKING NEWS:</div>
+                        <div class="news-content" id="news-content"></div>
+                    </div>
+
+                    <div class="stress-indicator" id="stress-indicator">
+                        <span class="stress-label">Stress Level:</span>
+                        <span class="stress-icons" id="stress-icons"></span>
+                    </div>
+
+                    <div class="question-section">
+                        <h3>How does this system respond?</h3>
+                        <div class="choices">
+                            <div class="choice-card needs" data-choice="System Needs This">
+                                <div class="choice-icon">🟢</div>
+                                <div class="choice-label">System Needs This</div>
+                            </div>
+                            <div class="choice-card absorbs" data-choice="System Absorbs This">
+                                <div class="choice-icon">🔵</div>
+                                <div class="choice-label">System Absorbs This</div>
+                            </div>
+                            <div class="choice-card strained" data-choice="System is Strained">
+                                <div class="choice-icon">🟡</div>
+                                <div class="choice-label">System is Strained</div>
+                            </div>
+                            <div class="choice-card breaks" data-choice="System Breaks">
+                                <div class="choice-icon">🔴</div>
+                                <div class="choice-label">System Breaks</div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary btn-submit" id="submit-btn" disabled onclick="submitAnswer()">
+                            Submit Assessment
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feedback Screen -->
+            <div id="feedback-screen" class="screen">
+                <div class="feedback-card">
+                    <div class="feedback-header" id="feedback-header">
+                        <div class="feedback-icon" id="feedback-icon"></div>
+                        <h3 id="feedback-title">Feedback Title</h3>
+                        <div class="xp-badge" id="xp-badge">+0 XP</div>
+                    </div>
+
+                    <div class="feedback-content">
+                        <div class="answer-comparison">
+                            <div class="answer-box your-answer">
+                                <strong>Your Choice:</strong>
+                                <span id="your-answer-display" class="answer-badge"></span>
+                            </div>
+                            <div class="answer-box correct-answer">
+                                <strong>Actual Response:</strong>
+                                <span id="correct-answer-display" class="answer-badge"></span>
+                            </div>
+                        </div>
+
+                        <div class="explanation-box">
+                            <h4>Explanation:</h4>
+                            <p id="feedback-explanation"></p>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="nextScenario()">
+                        Continue to Next Scenario
+                    </button>
+                </div>
+            </div>
+
+            <!-- Final Results Screen -->
+            <div id="results-screen" class="screen">
+                <div class="results-card">
+                    <h2>🏆 ASSESSMENT COMPLETE</h2>
+
+                    <div class="final-score">
+                        <div class="score-detail">
+                            <strong>Final Score:</strong>
+                            <span id="final-matches">0</span>/15 Matches
+                        </div>
+                        <div class="score-breakdown">
+                            <div class="breakdown-item">
+                                <span class="label">Adjacents:</span>
+                                <span class="value" id="final-adjacents">0</span>
+                            </div>
+                            <div class="breakdown-item">
+                                <span class="label">Misreads:</span>
+                                <span class="value" id="final-misreads">0</span>
+                            </div>
+                            <div class="breakdown-item">
+                                <span class="label">Critical Misreads:</span>
+                                <span class="value critical" id="final-critical">0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tier-section" id="tier-section">
+                        <div class="divider"></div>
+
+                        <div class="tier-earned" id="tier-earned">
+                            <div class="tier-badge" id="tier-badge">🥇 GOLD</div>
+                            <div class="xp-earned">XP Awarded: <span id="final-xp">200</span></div>
+                        </div>
+
+                        <div class="claim-code-section" id="claim-code-section">
+                            <h3>Your Claim Code:</h3>
+                            <div class="claim-code-box">
+                                <code id="claim-code">L3-301-M2-GOLD-PRESSURE</code>
+                            </div>
+                            <button class="btn btn-secondary" onclick="copyClaimCode()">
+                                📋 Copy Code
+                            </button>
+                            <div class="copy-feedback" id="copy-feedback">Copied to clipboard!</div>
+                        </div>
+
+                        <div class="tier-message">
+                            <p id="tier-message-text">
+                                You correctly diagnosed how NFL organizations respond under pressure.
+                                You identified breaking points and recognized which systems thrive on volatility.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="no-code-section" id="no-code-section" style="display: none;">
+                        <div class="no-code-message">
+                            <p>Review system stress patterns and try again to earn a claim code.</p>
+                            <p class="threshold-info">You need at least 6 correct or adjacent answers to earn a code.</p>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" onclick="location.reload()">Play Again</button>
+                        <a href="tutorial.html" class="btn btn-secondary">Tutorial</a>
+                        <a href="index.html" class="btn btn-secondary">Home</a>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/nfl-scenarios.js"></script>
+    <script src="js/scoring.js"></script>
+    <script src="js/game-engine.js"></script>
+    <script src="js/ui-controller.js"></script>
+</body>
+</html>

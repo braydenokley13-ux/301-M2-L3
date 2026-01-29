@@ -1,0 +1,67 @@
+/* NFL Team Theme Styles */
+
+/* Chiefs */
+.team-preview-card.chiefs {
+    border-left-color: #E31837;
+}
+
+.team-header.chiefs {
+    background: linear-gradient(135deg, rgba(227, 24, 55, 0.1), rgba(255, 184, 28, 0.1));
+}
+
+/* Browns */
+.team-preview-card.browns {
+    border-left-color: #FF3C00;
+}
+
+.team-header.browns {
+    background: linear-gradient(135deg, rgba(49, 29, 0, 0.1), rgba(255, 60, 0, 0.1));
+}
+
+/* Patriots */
+.team-preview-card.patriots {
+    border-left-color: #002244;
+}
+
+.team-header.patriots {
+    background: linear-gradient(135deg, rgba(0, 34, 68, 0.1), rgba(198, 12, 48, 0.1));
+}
+
+/* Packers */
+.team-preview-card.packers {
+    border-left-color: #203731;
+}
+
+.team-header.packers {
+    background: linear-gradient(135deg, rgba(32, 55, 49, 0.1), rgba(255, 182, 18, 0.1));
+}
+
+/* Ravens */
+.team-preview-card.ravens {
+    border-left-color: #241773;
+}
+
+.team-header.ravens {
+    background: linear-gradient(135deg, rgba(36, 23, 115, 0.1), rgba(158, 124, 12, 0.1));
+}
+
+/* Team-specific accent colors for active scenarios */
+body.game-page .team-header.active-chiefs .health-bar {
+    background: linear-gradient(90deg, #E31837, #FFB81C);
+}
+
+body.game-page .team-header.active-browns .health-bar {
+    background: linear-gradient(90deg, #FF3C00, #311D00);
+}
+
+body.game-page .team-header.active-patriots .health-bar {
+    background: linear-gradient(90deg, #002244, #C60C30);
+}
+
+body.game-page .team-header.active-packers .health-bar {
+    background: linear-gradient(90deg, #203731, #FFB612);
+}
+
+body.game-page .team-header.active-ravens .health-bar {
+    background: linear-gradient(90deg, #241773, #9E7C0C);
+}

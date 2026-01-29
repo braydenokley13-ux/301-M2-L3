@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial Mode - NFL System Stress Test</title>
+    <link rel="stylesheet" href="css/game.css">
+    <link rel="stylesheet" href="css/nfl-theme.css">
+</head>
+<body class="game-page tutorial-mode">
+    <div class="container">
+        <header class="game-header">
+            <div class="header-left">
+                <a href="index.html" class="back-link">← Back</a>
+                <h1>🏈 NFL System Stress Test</h1>
+            </div>
+            <div class="header-right">
+                <span class="mode-badge tutorial">Tutorial Mode</span>
+                <span class="progress-indicator">Progress: <span id="progress-text">0/3</span></span>
+            </div>
+        </header>
+
+        <main class="game-content">
+            <!-- Team Introduction Screen -->
+            <div id="team-intro" class="screen active">
+                <div class="team-intro-card">
+                    <h2>Kansas City Chiefs</h2>
+                    <div class="team-profile">
+                        <div class="profile-item">
+                            <strong>Organization Type:</strong>
+                            <span>Adaptive, Star-Centric</span>
+                        </div>
+                        <div class="profile-item">
+                            <strong>Stress Response Pattern:</strong>
+                            <span>Thrives with challenge, strains if star injured</span>
+                        </div>
+                    </div>
+                    <p class="intro-text">
+                        In this tutorial, you'll evaluate how the Kansas City Chiefs respond to
+                        three different stress levels. Before each scenario, you'll see the correct
+                        answer and explanation to help you understand the framework.
+                    </p>
+                    <button class="btn btn-primary" onclick="startTutorial()">Begin Tutorial</button>
+                </div>
+            </div>
+
+            <!-- Scenario Pre-Explanation Screen -->
+            <div id="pre-explanation" class="screen">
+                <div class="explanation-card">
+                    <div class="scenario-header">
+                        <h3 id="scenario-title">Scenario Title</h3>
+                        <span class="stress-level" id="stress-level-badge">Level 1</span>
+                    </div>
+
+                    <div class="scenario-content">
+                        <h4>The Situation:</h4>
+                        <p id="scenario-description" class="scenario-text"></p>
+                    </div>
+
+                    <div class="teaching-section">
+                        <h4>Before You Answer - Here's What Happens:</h4>
+                        <div class="answer-preview">
+                            <div class="correct-answer-box">
+                                <strong>Correct Response:</strong>
+                                <span id="correct-answer-preview" class="answer-badge"></span>
+                            </div>
+                            <p id="explanation-preview" class="explanation-text"></p>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-tip">
+                        💡 <strong>Your Turn:</strong> Now that you know what happens, select the response
+                        that matches this scenario. This helps you practice recognizing the pattern.
+                    </div>
+
+                    <button class="btn btn-primary" onclick="showScenario()">Continue to Question</button>
+                </div>
+            </div>
+
+            <!-- Scenario Question Screen -->
+            <div id="scenario-screen" class="screen">
+                <div class="scenario-card">
+                    <div class="team-header" id="team-header">
+                        <div class="team-info">
+                            <h2 id="team-name">Kansas City Chiefs</h2>
+                            <div class="team-type" id="team-type">Adaptive, Star-Centric</div>
+                        </div>
+                        <div class="health-meter-container">
+                            <div class="health-label">System Health</div>
+                            <div class="health-meter">
+                                <div class="health-bar" id="health-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="news-banner" id="news-banner">
+                        <div class="news-label">📰 BREAKING NEWS:</div>
+                        <div class="news-content" id="news-content"></div>
+                    </div>
+
+                    <div class="stress-indicator" id="stress-indicator">
+                        <span class="stress-label">Stress Level:</span>
+                        <span class="stress-icons" id="stress-icons"></span>
+                    </div>
+
+                    <div class="question-section">
+                        <h3>How does this system respond?</h3>
+                        <div class="choices">
+                            <div class="choice-card needs" data-choice="System Needs This">
+                                <div class="choice-icon">🟢</div>
+                                <div class="choice-label">System Needs This</div>
+                            </div>
+                            <div class="choice-card absorbs" data-choice="System Absorbs This">
+                                <div class="choice-icon">🔵</div>
+                                <div class="choice-label">System Absorbs This</div>
+                            </div>
+                            <div class="choice-card strained" data-choice="System is Strained">
+                                <div class="choice-icon">🟡</div>
+                                <div class="choice-label">System is Strained</div>
+                            </div>
+                            <div class="choice-card breaks" data-choice="System Breaks">
+                                <div class="choice-icon">🔴</div>
+                                <div class="choice-label">System Breaks</div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary btn-submit" id="submit-btn" disabled onclick="submitAnswer()">
+                            Submit Assessment
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feedback Screen -->
+            <div id="feedback-screen" class="screen">
+                <div class="feedback-card">
+                    <div class="feedback-header" id="feedback-header">
+                        <div class="feedback-icon" id="feedback-icon"></div>
+                        <h3 id="feedback-title">Feedback Title</h3>
+                    </div>
+
+                    <div class="feedback-content">
+                        <div class="answer-comparison">
+                            <div class="answer-box your-answer">
+                                <strong>Your Choice:</strong>
+                                <span id="your-answer-display" class="answer-badge"></span>
+                            </div>
+                            <div class="answer-box correct-answer">
+                                <strong>Actual Response:</strong>
+                                <span id="correct-answer-display" class="answer-badge"></span>
+                            </div>
+                        </div>
+
+                        <div class="explanation-box">
+                            <h4>Why This Response:</h4>
+                            <p id="feedback-explanation"></p>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="nextScenario()">
+                        <span id="next-btn-text">Continue to Next Scenario</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tutorial Complete Screen -->
+            <div id="complete-screen" class="screen">
+                <div class="complete-card">
+                    <h2>🎓 Tutorial Complete!</h2>
+                    <p class="complete-message">
+                        You've learned how to assess system stress responses using the Kansas City Chiefs
+                        as an example. You now understand the four response types:
+                    </p>
+
+                    <div class="summary-grid">
+                        <div class="summary-item needs">
+                            <strong>🟢 System Needs This</strong>
+                            <p>Stress drives necessary growth</p>
+                        </div>
+                        <div class="summary-item absorbs">
+                            <strong>🔵 System Absorbs This</strong>
+                            <p>Business as usual, no strain</p>
+                        </div>
+                        <div class="summary-item strained">
+                            <strong>🟡 System is Strained</strong>
+                            <p>Survives at the edge of capability</p>
+                        </div>
+                        <div class="summary-item breaks">
+                            <strong>🔴 System Breaks</strong>
+                            <p>System cannot function</p>
+                        </div>
+                    </div>
+
+                    <div class="next-steps">
+                        <h3>Ready for the Real Challenge?</h3>
+                        <p>Test your skills across all 5 NFL teams and earn your claim code.</p>
+                        <div class="action-buttons">
+                            <a href="game.html" class="btn btn-primary btn-large">Start Real Mode</a>
+                            <a href="index.html" class="btn btn-secondary">Back to Home</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/nfl-scenarios.js"></script>
+    <script src="js/tutorial.js"></script>
+</body>
+</html>
